@@ -1,0 +1,31 @@
+{
+    "name": "imgninja/php-sdk",
+    "description": "ImgNinja PHP SDK.",
+    "keywords": [ "imgninja", "php-sdk", "image", "image handler", "image resize", "resizing" ],
+    "license": "MIT",
+    "homepage": "https://imgninjaimg.com",
+    "support": {
+        "source": "https://github.com/skipperbent/imgninja-php-sdk"
+    },
+    "authors": [
+        {
+            "name": "Simon Sessingø",
+            "email": "simon.sessingoe@gmail.com"
+        }
+    ],
+    "require": {
+        "pecee/http-service": "1.*"
+    },
+    "require-dev": {
+        "pecee/http-service": "1.*",
+        "phpunit/phpunit": "4.7.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "ImgNinja\\": "src/ImgNinja/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
