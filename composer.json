@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ImgNinja\\": "src/ImgNinja/"
+            "NinjaImg\\": "src/NinjaImg/"
         }
     },
     "config": {

@@ -1,5 +1,5 @@
 <?php
-namespace ImgNinja;
+namespace NinjaImg;
 
 use Pecee\Http\Rest\RestException;
 

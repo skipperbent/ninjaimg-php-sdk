@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6fc57880e3b910884521082fdee59054",
+    "hash": "bc503368f6b8c7ad869270b4cdfeda5a",
     "packages": [
         {
             "name": "pecee/http-service",
-            "version": "1.0.5",
+            "version": "1.0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/skipperbent/http-service.git",
-                "reference": "f612fd9b7193db11decc48bcf4513004acffeae9"
+                "reference": "1e7ff3a18efbb154f58b144c66e2fd992c3ec036"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skipperbent/http-service/zipball/f612fd9b7193db11decc48bcf4513004acffeae9",
-                "reference": "f612fd9b7193db11decc48bcf4513004acffeae9",
+                "url": "https://api.github.com/repos/skipperbent/http-service/zipball/1e7ff3a18efbb154f58b144c66e2fd992c3ec036",
+                "reference": "1e7ff3a18efbb154f58b144c66e2fd992c3ec036",
                 "shasum": ""
             },
             "require-dev": {
@@ -48,7 +48,7 @@
                 "service",
                 "web"
             ],
-            "time": "2015-11-12 09:11:35"
+            "time": "2015-11-16 20:35:56"
         }
     ],
     "packages-dev": [
