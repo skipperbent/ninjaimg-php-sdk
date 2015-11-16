@@ -14,13 +14,13 @@ $newUrl = $image->upload($content, '/destination/path/file.jpg');
 
 ```php
 $image = new \NinjaImg\ServiceUpload($ninjaImgDomain, $ninjaImgApiToken);
-$response = $image->delete('/test/dement-mand.jpg');
+$response = $image->delete('/destination/path/file.jpg');
 ```
 
 ## Generating url
 
 ```php
-$url = new \NinjaImg\ServiceImage('http://local.service.ninjaimg/1914109_142926756975_2647065_n.jpg');
+$url = new \NinjaImg\ServiceImage('http://example.ninjaimg.com/destination/path/file.jpg');
 
 return $url->height(200)->width(200)->getUrl();
 ```
