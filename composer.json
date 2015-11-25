@@ -1,7 +1,7 @@
 {
-    "name": "imgninja/php-sdk",
-    "description": "ImgNinja PHP SDK.",
-    "keywords": [ "imgninja", "php-sdk", "image", "image handler", "image resize", "resizing" ],
+    "name": "ninjaimg/php-sdk",
+    "description": "NinjaImg PHP SDK.",
+    "keywords": [ "ninjaimg", "imgninja", "images", "php-sdk", "image", "image handler", "image resize", "resizing" ],
     "license": "MIT",
     "homepage": "https://imgninjaimg.com",
     "support": {
