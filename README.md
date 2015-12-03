@@ -1,6 +1,20 @@
 # ninjaimg-php-sdk
 Official PHP SDK for the NinjaImg service
 
+## Installing the SDK
+
+Add the latest version of the NinjaImg SDK, add the following lines to your ```composer.json``` file.
+
+```php
+{
+    "require": {
+        "pecee/ninjaimg/php-sdk": "1.*"
+    },
+    "require-dev": {
+        "pecee/ninjaimg/php-sdk": "1.*"
+    }
+}
+```
 
 ## Uploading file
 
