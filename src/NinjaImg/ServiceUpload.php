@@ -35,8 +35,12 @@ class ServiceUpload extends ServiceBase {
 
         $response = json_decode($this->api($destinationPath, self::METHOD_POST)->getResponse());
 
-        if (!$response || isset($response->error) && $response->error) {
-            throw new ServiceException($response->error, $response->code);
+        if ($response === null || isset($response->error) && $response->error) {
+
+            $error = isset($response->error) ? $response->error : 'Invalid response';
+            $code = isset($response->code) ? $response->code : 0;
+
+            throw new ServiceException($error, $code);
         }
 
         return $response->url;
