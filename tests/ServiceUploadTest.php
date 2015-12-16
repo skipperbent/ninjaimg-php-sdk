@@ -1,6 +1,6 @@
 <?php
 
-class ServiceIndexSearchTest extends PHPUnit_Framework_TestCase  {
+class ServiceUploadTest extends PHPUnit_Framework_TestCase  {
 
 	public function testInsert() {
 
