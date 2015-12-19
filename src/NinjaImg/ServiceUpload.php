@@ -3,7 +3,7 @@ namespace NinjaImg;
 
 use Pecee\Http\Rest\RestBase;
 
-class ServiceUpload extends ServiceBase {
+class ServiceUpload extends RestBase {
 
     protected $domain;
     protected $apiToken;
@@ -32,6 +32,8 @@ class ServiceUpload extends ServiceBase {
         ]);
 
         $this->httpRequest->setRawPostData($fileContents);
+
+        die(var_dump($this->api($destinationPath, self::METHOD_POST)->getResponse()));
 
         $response = json_decode($this->api($destinationPath, self::METHOD_POST)->getResponse());
 
