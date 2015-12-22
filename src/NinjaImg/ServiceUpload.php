@@ -33,8 +33,6 @@ class ServiceUpload extends RestBase {
 
         $this->httpRequest->setRawPostData($fileContents);
 
-        die(var_dump($this->api($destinationPath, self::METHOD_POST)->getResponse()));
-
         $response = json_decode($this->api($destinationPath, self::METHOD_POST)->getResponse());
 
         if ($response === null || isset($response->error) && $response->error) {
