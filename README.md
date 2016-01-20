@@ -19,7 +19,7 @@ Add the latest version of the NinjaImg SDK, add the following lines to your ```c
 ## Uploading file
 
 ```php
-$image = new \NinjaImg\ServiceUpload($ninjaImgDomain, $ninjaImgApiToken);
+$image = new \NinjaImg\NinjaUpload($ninjaImgDomain, $ninjaImgApiToken);
 $content = file_get_contents('/path/to/my/image.jpg');
 $newUrl = $image->upload($content, '/destination/path/file.jpg');
 ```
@@ -27,14 +27,14 @@ $newUrl = $image->upload($content, '/destination/path/file.jpg');
 ## Deleting file
 
 ```php
-$image = new \NinjaImg\ServiceUpload($ninjaImgDomain, $ninjaImgApiToken);
+$image = new \NinjaImg\NinjaUpload($ninjaImgDomain, $ninjaImgApiToken);
 $response = $image->delete('/destination/path/file.jpg');
 ```
 
 ## Generating url
 
 ```php
-$url = new \NinjaImg\ServiceImage('http://example.ninjaimg.com/destination/path/file.jpg');
+$url = new \NinjaImg\NinjaImage('http://example.ninjaimg.com/destination/path/file.jpg');
 
 return $url->height(200)->width(200)->getUrl();
 ```
