@@ -8,10 +8,10 @@ Add the latest version of the NinjaImg SDK, add the following lines to your ```c
 ```php
 {
     "require": {
-        "pecee/ninjaimg/php-sdk": "1.*"
+        "pecee/ninjaimg/php-sdk": "2.*"
     },
     "require-dev": {
-        "pecee/ninjaimg/php-sdk": "1.*"
+        "pecee/ninjaimg/php-sdk": "2.*"
     }
 }
 ```
