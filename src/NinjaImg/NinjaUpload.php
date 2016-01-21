@@ -20,7 +20,7 @@ class NinjaUpload extends RestBase {
      * @param string $fileContents Binary content of file
      * @param string $destinationPath Full destination path including extension
      * @return string Returns url for upload on ImgNinja
-     * @throws ServiceException
+     * @throws NinjaException
      */
     public function upload($fileContents, $destinationPath) {
         $info = new \finfo(FILEINFO_MIME);
@@ -40,7 +40,7 @@ class NinjaUpload extends RestBase {
             $error = isset($response->error) ? $response->error : 'Invalid response';
             $code = isset($response->code) ? $response->code : 0;
 
-            throw new ServiceException($error, $code);
+            throw new NinjaException($error, $code);
         }
 
         return $response->url;
@@ -52,7 +52,7 @@ class NinjaUpload extends RestBase {
      * @param string $fileContents Binary content of file
      * @param string $destinationPath Full destination path including extension
      * @return string Returns url for upload on ImgNinja
-     * @throws ServiceException
+     * @throws NinjaException
      */
     public function update($fileContents, $destinationPath) {
         return $this->upload($fileContents, $destinationPath);
@@ -63,15 +63,21 @@ class NinjaUpload extends RestBase {
      *
      * @param string $path
      * @return bool
-     * @throws ServiceException
+     * @throws NinjaException
      */
     public function delete($path) {
         $this->httpRequest->addHeader('X-Auth-Token: ' . $this->apiToken);
 
+        // Parse full url
+        if($path[0] !== '/') {
+            $url = parse_url($path);
+            $path = $url['path'];
+        }
+
         $response = json_decode($this->api($path, self::METHOD_DELETE)->getResponse());
 
         if(!$response || isset($response->error) && $response->error) {
-            throw new ServiceException($response->error, $response->code);
+            throw new NinjaException($response->error, $response->code);
         }
 
         return true;
@@ -81,7 +87,7 @@ class NinjaUpload extends RestBase {
         try {
             return parent::api($url, $method, $data);
         }catch (\Exception $e) {
-            throw new ServiceException($e->getMessage(), $e->getCode());
+            throw new NinjaException($e->getMessage(), $e->getCode());
         }
     }
     /**
