@@ -51,7 +51,7 @@ class NinjaImage {
 
     public function fit($fit) {
         if(!in_array($fit, self::$fits)) {
-            throw new ServiceException('Invalid value for fit. Valid values are: ' . join(', ', self::$fits));
+            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', self::$fits));
         }
 
         $this->data['fit'] = $fit;
@@ -85,7 +85,7 @@ class NinjaImage {
 
     public function textFit($fit) {
         if(!in_array($fit, self::$textFits)) {
-            throw new ServiceException('Invalid value for fit. Valid values are: ' . join(', ', self::$textFits));
+            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', self::$textFits));
         }
 
         $this->data['txtfit'] = $fit;
@@ -114,7 +114,7 @@ class NinjaImage {
 
     public function watermarkFit($fit) {
         if(!in_array($fit, self::$fits)) {
-            throw new ServiceException('Invalid value for fit. Valid values are: ' . join(', ', self::$fits));
+            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', self::$fits));
         }
 
         $this->data['markfit'] = $fit;
@@ -173,7 +173,7 @@ class NinjaImage {
 
     public function format($format) {
         if(!in_array($format, self::$formats)) {
-            throw new ServiceException('Invalid value for format. Valid values are: ' . join(', ', self::$formats));
+            throw new NinjaException('Invalid value for format. Valid values are: ' . join(', ', self::$formats));
         }
 
         $this->data['fm'] = $format;

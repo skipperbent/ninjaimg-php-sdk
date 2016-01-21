@@ -1,5 +1,7 @@
 <?php
 
+// ignore this file - use the unit-test instead.
+
 require_once '../vendor/autoload.php';
 
 /*$url = new \NinjaImg\ServiceImage('http://local.service.ninjaimg/1914109_142926756975_2647065_n.jpg');
