@@ -43,7 +43,7 @@ class NinjaUpload extends RestBase {
             throw new NinjaException($error, $code);
         }
 
-        return $response->url;
+        return $response;
     }
 
     /**
