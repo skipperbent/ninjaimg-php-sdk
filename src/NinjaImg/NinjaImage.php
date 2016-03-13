@@ -25,11 +25,6 @@ class NinjaImage {
     protected $ssl;
 
     public function __construct($url) {
-
-        if( filter_var($url, FILTER_VALIDATE_URL) === false || stripos($url, 'ninjaimg.com') === false) {
-            throw new NinjaException('Invalid url provided: ' . $url);
-        }
-
         $this->url = $url;
         $this->data = array();
         $this->ssl = false;
