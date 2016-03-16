@@ -22,12 +22,10 @@ class NinjaImage {
 
     protected $url;
     protected $data;
-    protected $ssl;
 
     public function __construct($url) {
         $this->url = $url;
         $this->data = array();
-        $this->ssl = false;
     }
 
     public function size($width, $height) {
@@ -192,15 +190,7 @@ class NinjaImage {
 
     public function getUrl() {
         $url = parse_url($this->url);
-
-        $scheme = ($this->ssl) ? 'https' : 'http';
-
-        return $scheme .'://' . $url['host'] . $url['path'] . '?' . http_build_query($this->data);
-    }
-
-    public function setSsl($bool) {
-        $this->ssl = $bool;
-        return $this;
+        return '//' . $url['host'] . $url['path'] . '?' . http_build_query($this->data);
     }
 
 }
