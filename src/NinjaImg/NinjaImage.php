@@ -10,24 +10,62 @@ class NinjaImage {
     const FIT_MAX = 'max';
     const FIT_MIN = 'min';
 
+    const CROP_DEFAULT = '';
+    const CROP_BOTTOM_LEFT = 'bottom,left';
+    const CROP_BOTTOM_RIGHT = 'bottom,right';
+    const CROP_BOTTOM = 'bottom';
+    const CROP_LEFT = 'left';
+    const CROP_RIGHT = 'right';
+    const CROP_TOP = 'top';
+    const CROP_TOP_LEFT = 'top,left';
+    const CROP_TOP_RIGHT = 'top,right';
+
+    const FORMAT_AUTO = 'auto';
     const FORMAT_PNG = 'png';
     const FORMAT_JPG = 'jpg';
     const FORMAT_GIF = 'gif';
 
     const TEXT_FIT_MAX = 'max';
 
-    public static $fits = array(self::FIT_CLAMP, self::FIT_CLIP, self::FIT_CROP, self::FIT_MAX, self::FIT_MIN, self::FIT_SCALE);
-    public static $formats = array(self::FORMAT_GIF, self::FORMAT_JPG, self::FORMAT_PNG);
-    public static $textFits = array(self::TEXT_FIT_MAX);
+    public static $fits = [
+        self::FIT_CLAMP,
+        self::FIT_CLIP,
+        self::FIT_CROP,
+        self::FIT_MAX,
+        self::FIT_MIN,
+        self::FIT_SCALE
+    ];
+
+    public static $crops = [
+        self::CROP_DEFAULT,
+        self::CROP_BOTTOM,
+        self::CROP_BOTTOM_LEFT,
+        self::CROP_BOTTOM_RIGHT,
+        self::CROP_LEFT,
+        self::CROP_RIGHT,
+        self::CROP_TOP,
+        self::CROP_TOP_LEFT,
+        self::CROP_TOP_RIGHT
+    ];
+
+    public static $formats = [
+        self::FORMAT_AUTO,
+        self::FORMAT_GIF,
+        self::FORMAT_JPG,
+        self::FORMAT_PNG,
+        self::FORMAT_BMP
+    ];
+
+    public static $textFits = [
+        self::TEXT_FIT_MAX
+    ];
 
     protected $url;
     protected $data;
-    protected $ssl;
 
     public function __construct($url) {
         $this->url = $url;
         $this->data = array();
-        $this->ssl = false;
     }
 
     public function size($width, $height) {
@@ -35,13 +73,11 @@ class NinjaImage {
     }
 
     public function width($width) {
-        $this->data['w'] = $width;
-        return $this;
+        return $this->addParam('w', $width);
     }
 
     public function height($height) {
-        $this->data['h'] = $height;
-        return $this;
+        return $this->addParam('h', $height);
     }
 
     public function fit($fit) {
@@ -49,33 +85,27 @@ class NinjaImage {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', self::$fits));
         }
 
-        $this->data['fit'] = $fit;
-        return $this;
+        return $this->addParam('fit', $fit);
     }
 
     public function text($text) {
-        $this->data['txt'] = $text;
-        return $this;
+        return $this->addParam('txt', $text);
     }
 
     public function textFont($font) {
-        $this->data['txtfont'] = $font;
-        return $this;
+        return $this->addParam('txtfont', $font);
     }
 
     public function textColor($hexColor) {
-        $this->data['txtclr'] = $hexColor;
-        return $this;
+        return $this->addParam('txtclr', $hexColor);
     }
 
     public function textSize($size) {
-        $this->data['txtsize'] = $size;
-        return $this;
+        return $this->addParam('txtsize', $size);
     }
 
     public function textPadding($padding) {
-        $this->data['txtpad'] = $padding;
-        return $this;
+        return $this->addParam('txtpad', $padding);
     }
 
     public function textFit($fit) {
@@ -83,28 +113,23 @@ class NinjaImage {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', self::$textFits));
         }
 
-        $this->data['txtfit'] = $fit;
-        return $this;
+        return $this->addParam('txtfit', $fit);
     }
 
     public function textAlign($align) {
-        $this->data['txtalign'] = $align;
-        return $this;
+        return $this->addParam('txtalign', $align);
     }
 
     public function watermark($url) {
-        $this->data['mark'] = $url;
-        return $this;
+        return $this->addParam('mark', $url);
     }
 
     public function watermarkAlign($align) {
-        $this->data['markalign'] = $align;
-        return $this;
+        return $this->addParam('markalign', $align);
     }
 
     public function watermarkAlpha($opacity) {
-        $this->data['markalpha'] = $opacity;
-        return $this;
+        return $this->addParam('markalpha', $opacity);
     }
 
     public function watermarkFit($fit) {
@@ -112,58 +137,47 @@ class NinjaImage {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', self::$fits));
         }
 
-        $this->data['markfit'] = $fit;
-        return $this;
+        return $this->addParam('markfit', $fit);
     }
 
     public function watermarkWidth($width) {
-        $this->data['markw'] = $width;
-        return $this;
+        return $this->addParam('markw', $width);
     }
 
     public function watermarkHeight($height) {
-        $this->data['markh'] = $height;
-        return $this;
+        return $this->addParam('markh', $height);
     }
 
     public function watermarkScale($scale) {
-        $this->data['markscale'] = $scale;
-        return $this;
+        return $this->addParam('markscale', $scale);
     }
 
     public function watermarkX($x) {
-        $this->data['markx'] = $x;
-        return $this;
+        return $this->addParam('markx', $x);
     }
 
     public function watermarkY($y) {
-        $this->data['marky'] = $y;
-        return $this;
+        return $this->addParam('marky', $y);
     }
 
     public function watermarkPadding($padding) {
-        $this->data['markpad'] = $padding;
-        return $this;
+        return $this->addParam('markpad', $padding);
     }
 
     public function quality($quality) {
-        $this->data['q'] = $quality;
-        return $this;
+        return $this->addParam('q', $quality);
     }
 
     public function gamma($gamma) {
-        $this->data['gam'] = $gamma;
-        return $this;
+        return $this->addParam('gam', $gamma);
     }
 
     public function contrast($contrast) {
-        $this->data['con'] = $contrast;
-        return $this;
+        return $this->addParam('con', $contrast);
     }
 
     public function brightness($brightness) {
-        $this->data['bri'] = $brightness;
-        return $this;
+        return $this->addParam('bri', $brightness);
     }
 
     public function format($format) {
@@ -171,35 +185,52 @@ class NinjaImage {
             throw new NinjaException('Invalid value for format. Valid values are: ' . join(', ', self::$formats));
         }
 
-        $this->data['fm'] = $format;
-        return $this;
+        return $this->addParam('fm', $format);
     }
 
     public function rotation($rotation) {
-        $this->data['rot'] = $rotation;
-        return $this;
+        return $this->addParam('rot', $rotation);
     }
 
     public function orientation($orientation) {
-        $this->data['or'] = $orientation;
-        return $this;
+        return $this->addParam('or', $orientation);
     }
 
     public function flip($flip) {
-        $this->data['fli'] = $flip;
-        return $this;
+        return $this->addParam('fli', $flip);
+    }
+
+    public function blur($amount) {
+        return $this->addParam('blur', $amount);
     }
 
     public function getUrl() {
         $url = parse_url($this->url);
-
-        $scheme = ($this->ssl) ? 'https' : 'http';
-
-        return $scheme .'://' . $url['host'] . $url['path'] . '?' . http_build_query($this->data);
+        return '//' . $url['host'] . $url['path'] . (count($this->data)) ? '?' . http_build_query($this->data) : '';
     }
 
-    public function setSsl($bool) {
-        $this->ssl = $bool;
+    public function crop($format = self::CROP_DEFAULT) {
+        if(!in_array($format, self::$crops)) {
+            throw new NinjaException('Invalid crop type. Valid crop types are: ' . join(', ', self::$crops));
+        }
+
+        return $this->addParam('crop', $format);
+    }
+
+    public function opacity($amount) {
+        return $this->addParam('opa', $amount);
+    }
+
+    public function mask($image) {
+        return $this->addParam('mask', $image);
+    }
+
+    public function backgroundColor($color) {
+        return $this->addParam('bg', $color);
+    }
+
+    public function addParam($name, $value) {
+        $this->data[$name] = $value;
         return $this;
     }
 
