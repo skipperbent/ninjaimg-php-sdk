@@ -10,15 +10,55 @@ class NinjaImage {
     const FIT_MAX = 'max';
     const FIT_MIN = 'min';
 
+    const CROP_DEFAULT = '';
+    const CROP_BOTTOM_LEFT = 'bottom,left';
+    const CROP_BOTTOM_RIGHT = 'bottom,right';
+    const CROP_BOTTOM = 'bottom';
+    const CROP_LEFT = 'left';
+    const CROP_RIGHT = 'right';
+    const CROP_TOP = 'top';
+    const CROP_TOP_LEFT = 'top,left';
+    const CROP_TOP_RIGHT = 'top,right';
+
+    const FORMAT_AUTO = 'auto';
     const FORMAT_PNG = 'png';
     const FORMAT_JPG = 'jpg';
     const FORMAT_GIF = 'gif';
 
     const TEXT_FIT_MAX = 'max';
 
-    public static $fits = array(self::FIT_CLAMP, self::FIT_CLIP, self::FIT_CROP, self::FIT_MAX, self::FIT_MIN, self::FIT_SCALE);
-    public static $formats = array(self::FORMAT_GIF, self::FORMAT_JPG, self::FORMAT_PNG);
-    public static $textFits = array(self::TEXT_FIT_MAX);
+    public static $fits = [
+        self::FIT_CLAMP,
+        self::FIT_CLIP,
+        self::FIT_CROP,
+        self::FIT_MAX,
+        self::FIT_MIN,
+        self::FIT_SCALE
+    ];
+
+    public static $crops = [
+        self::CROP_DEFAULT,
+        self::CROP_BOTTOM,
+        self::CROP_BOTTOM_LEFT,
+        self::CROP_BOTTOM_RIGHT,
+        self::CROP_LEFT,
+        self::CROP_RIGHT,
+        self::CROP_TOP,
+        self::CROP_TOP_LEFT,
+        self::CROP_TOP_RIGHT
+    ];
+
+    public static $formats = [
+        self::FORMAT_AUTO,
+        self::FORMAT_GIF,
+        self::FORMAT_JPG,
+        self::FORMAT_PNG,
+        self::FORMAT_BMP
+    ];
+
+    public static $textFits = [
+        self::TEXT_FIT_MAX
+    ];
 
     protected $url;
     protected $data;
@@ -167,6 +207,26 @@ class NinjaImage {
     public function getUrl() {
         $url = parse_url($this->url);
         return '//' . $url['host'] . $url['path'] . (count($this->data)) ? '?' . http_build_query($this->data) : '';
+    }
+
+    public function crop($format = self::CROP_DEFAULT) {
+        if(!in_array($format, self::$crops)) {
+            throw new NinjaException('Invalid crop type. Valid crop types are: ' . join(', ', self::$crops));
+        }
+
+        return $this->addParam('crop', $format);
+    }
+
+    public function opacity($amount) {
+        return $this->addParam('opa', $amount);
+    }
+
+    public function mask($image) {
+        return $this->addParam('mask', $image);
+    }
+
+    public function backgroundColor($color) {
+        return $this->addParam('bg', $color);
     }
 
     public function addParam($name, $value) {
