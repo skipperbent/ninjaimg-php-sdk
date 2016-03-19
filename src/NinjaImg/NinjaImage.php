@@ -24,6 +24,7 @@ class NinjaImage {
     const FORMAT_PNG = 'png';
     const FORMAT_JPG = 'jpg';
     const FORMAT_GIF = 'gif';
+    const FORMAT_BMP = 'bmp';
 
     const TEXT_FIT_MAX = 'max';
 
