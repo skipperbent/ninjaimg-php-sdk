@@ -207,7 +207,7 @@ class NinjaImage {
 
     public function getUrl() {
         $url = parse_url($this->url);
-        return '//' . $url['host'] . $url['path'] . (count($this->data)) ? '?' . http_build_query($this->data) : '';
+        return '//' . $url['host'] . $url['path'] . ((count($this->data)) ? '?' . http_build_query($this->data) : '');
     }
 
     public function crop($format = self::CROP_DEFAULT) {
