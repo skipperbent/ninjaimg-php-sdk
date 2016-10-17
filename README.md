@@ -33,7 +33,7 @@ return $url->height(200)->width(200)->getUrl();
 #### Response
 
 ```
-http://example.ninjaimg.com/destination/path/file.jpg?h=200&w=200
+//example.ninjaimg.com/destination/path/file.jpg?h=200&w=200
 ```
 
 ## The MIT License (MIT)
