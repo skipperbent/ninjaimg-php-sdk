@@ -230,6 +230,14 @@ class NinjaImage {
         return $this->addParam('bg', $color);
     }
 
+    public function preview() {
+        return $this->addParam('preview', 'true');
+    }
+
+    public function previewSeconds($seconds) {
+        return $this->addParam('sec', $seconds);
+    }
+
     public function addParam($name, $value) {
         $this->data[$name] = $value;
         return $this;
