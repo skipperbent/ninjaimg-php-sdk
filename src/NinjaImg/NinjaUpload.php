@@ -23,12 +23,9 @@ class NinjaUpload extends RestBase {
      * @throws NinjaException
      */
     public function upload($fileContents, $destinationPath) {
-        $info = new \finfo(FILEINFO_MIME);
-        $mime = $info->buffer($fileContents, FILEINFO_MIME_TYPE);
 
         $this->httpRequest->setHeaders([
             'X-Auth-Token: ' . $this->apiToken,
-            'Content-type: ' . $mime
         ]);
 
         $this->httpRequest->setRawPostData($fileContents);
