@@ -22,6 +22,16 @@ $image = new \NinjaImg\NinjaUpload($ninjaImgDomain, $ninjaImgApiToken);
 $response = $image->delete('/destination/path/file.jpg');
 ```
 
+## Deleting multiple files
+
+```php
+$image = new \NinjaImg\NinjaUpload($ninjaImgDomain, $ninjaImgApiToken);
+$response = $image->deleteBatch([
+    '/destination/path/file1.jpg',
+    '/destination/path/file2.jpg',
+]);
+```
+
 ## Generating url
 
 ```php

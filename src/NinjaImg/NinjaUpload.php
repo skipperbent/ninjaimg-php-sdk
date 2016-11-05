@@ -13,7 +13,7 @@ class NinjaUpload extends RestBase {
         $this->apiToken = $apiToken;
         parent::__construct();
 
-        $this->serviceUrl = 'http://' . $domain;
+        $this->serviceUrl = 'http://' . $domain . '/api';
     }
 
     /**
@@ -72,6 +72,24 @@ class NinjaUpload extends RestBase {
         }
 
         $response = json_decode($this->api($path, self::METHOD_DELETE)->getResponse());
+
+        if(!$response || isset($response->error) && $response->error) {
+            throw new NinjaException($response->error, $response->code);
+        }
+
+        return true;
+    }
+
+    /**
+     * Delete multiple files
+     *
+     * @param array $paths
+     * @return bool
+     * @throws NinjaException
+     */
+    public function deleteBatch(array $paths) {
+        $this->httpRequest->setRawPostData(json_encode($paths));
+        $response = json_decode($this->api('/batch', self::METHOD_DELETE)->getResponse());
 
         if(!$response || isset($response->error) && $response->error) {
             throw new NinjaException($response->error, $response->code);
