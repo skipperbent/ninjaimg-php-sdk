@@ -88,14 +88,15 @@ class NinjaUpload extends RestBase {
      * @throws NinjaException
      */
     public function deleteBatch(array $paths) {
+        $this->httpRequest->addHeader('X-Auth-Token: ' . $this->apiToken);
         $this->httpRequest->setRawPostData(json_encode($paths));
         $response = json_decode($this->api('/batch', self::METHOD_DELETE)->getResponse());
 
-        if(!$response || isset($response->error) && $response->error) {
-            throw new NinjaException($response->error, $response->code);
+        if(!$response) {
+            throw new NinjaException('Failed to parse response');
         }
 
-        return true;
+        return $response;
     }
 
     public function api($url = null, $method = self::METHOD_GET, array $data = array()) {
