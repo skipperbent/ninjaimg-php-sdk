@@ -11,6 +11,7 @@ class NinjaUpload extends RestBase {
     public function __construct($domain, $apiToken) {
         $this->domain = $domain;
         $this->apiToken = $apiToken;
+
         parent::__construct();
 
         $this->serviceUrl = 'http://' . $domain . '/api';
@@ -32,7 +33,7 @@ class NinjaUpload extends RestBase {
 
         $response = json_decode($this->api($destinationPath, self::METHOD_POST)->getResponse());
 
-        if ($response === null || isset($response->error) && $response->error) {
+        if ($response === null || (isset($response->error) && $response->error)) {
 
             $error = isset($response->error) ? $response->error : 'Invalid response';
             $code = isset($response->code) ? $response->code : 0;
@@ -73,7 +74,7 @@ class NinjaUpload extends RestBase {
 
         $response = json_decode($this->api($path, self::METHOD_DELETE)->getResponse());
 
-        if(!$response || isset($response->error) && $response->error) {
+        if(!$response || (isset($response->error) && $response->error)) {
             throw new NinjaException($response->error, $response->code);
         }
 
