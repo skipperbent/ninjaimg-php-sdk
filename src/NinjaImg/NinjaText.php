@@ -3,9 +3,6 @@ namespace NinjaImg;
 
 class NinjaText
 {
-
-    const SERVICE_URL = '';
-
     const FIT_CLAMP = 'clamp';
     const FIT_CLIP = 'clip';
     const FIT_CROP = 'crop';
@@ -50,13 +47,21 @@ class NinjaText
         self::CROP_TOP_RIGHT,
     ];
 
+    public static $formats = [
+        self::FORMAT_AUTO,
+        self::FORMAT_GIF,
+        self::FORMAT_JPG,
+        self::FORMAT_PNG,
+        self::FORMAT_BMP,
+    ];
+
     protected $domain;
     protected $data;
 
     public function __construct($domain)
     {
         $this->domain = $domain;
-        $this->data = [];
+        $this->data   = [];
     }
 
     public function size($width, $height)
@@ -125,8 +130,8 @@ class NinjaText
 
     public function format($format)
     {
-        if (!in_array($format, self::$formats)) {
-            throw new NinjaException('Invalid value for format. Valid values are: ' . join(', ', self::$formats));
+        if (in_array($format, static::$formats) === false) {
+            throw new NinjaException('Invalid value for format. Valid values are: ' . join(', ', static::$formats));
         }
 
         return $this->addParam('fm', $format);
@@ -154,8 +159,8 @@ class NinjaText
 
     public function crop($format = self::CROP_DEFAULT)
     {
-        if (!in_array($format, self::$crops)) {
-            throw new NinjaException('Invalid crop type. Valid crop types are: ' . join(', ', self::$crops));
+        if (in_array($format, static::$crops) === false) {
+            throw new NinjaException('Invalid crop type. Valid crop types are: ' . join(', ', static::$crops));
         }
 
         return $this->addParam('crop', $format);

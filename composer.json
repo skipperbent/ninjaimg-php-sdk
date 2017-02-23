@@ -1,42 +1,42 @@
 {
-  "name": "ninjaimg/php-sdk",
-  "description": "NinjaImg PHP SDK.",
-  "keywords": [
-    "ninjaimg",
-    "image",
-    "images",
-    "php-sdk",
-    "image",
-    "image handler",
-    "image resize",
-    "upload api",
-    "dropbox",
-    "amazon s3",
-    "resizing"
-  ],
-  "license": "MIT",
-  "homepage": "https://ninjaimg.com",
-  "support": {
-    "source": "https://github.com/skipperbent/ninjaimg-php-sdk"
-  },
-  "authors": [
-    {
-      "name": "Simon Sessingø",
-      "email": "simon.sessingoe@gmail.com"
+    "name": "ninjaimg/php-sdk",
+    "description": "NinjaImg PHP SDK.",
+    "keywords": [
+        "ninjaimg",
+        "image",
+        "images",
+        "php-sdk",
+        "image",
+        "image handler",
+        "image resize",
+        "upload api",
+        "dropbox",
+        "amazon s3",
+        "resizing"
+    ],
+    "license": "MIT",
+    "homepage": "https://ninjaimg.com",
+    "support": {
+        "source": "https://github.com/skipperbent/ninjaimg-php-sdk"
+    },
+    "authors": [
+        {
+            "name": "Simon Sessingø",
+            "email": "simon.sessingoe@gmail.com"
+        }
+    ],
+    "require": {
+        "pecee/http-service": "2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "NinjaImg\\": "src/NinjaImg/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
     }
-  ],
-  "require": {
-    "pecee/http-service": "2.*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.*"
-  },
-  "autoload": {
-    "psr-4": {
-      "NinjaImg\\": "src/NinjaImg/"
-    }
-  },
-  "config": {
-    "preferred-install": "dist"
-  }
 }
