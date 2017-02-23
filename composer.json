@@ -1,11 +1,23 @@
 {
     "name": "ninjaimg/php-sdk",
     "description": "NinjaImg PHP SDK.",
-    "keywords": [ "ninjaimg", "imgninja", "images", "php-sdk", "image", "image handler", "image resize", "resizing" ],
+    "keywords": [
+        "ninjaimg",
+        "image",
+        "images",
+        "php-sdk",
+        "image",
+        "image handler",
+        "image resize",
+        "upload api",
+        "dropbox",
+        "amazon s3",
+        "resizing"
+    ],
     "license": "MIT",
-    "homepage": "https://imgninjaimg.com",
+    "homepage": "https://ninjaimg.com",
     "support": {
-        "source": "https://github.com/skipperbent/imgninja-php-sdk"
+        "source": "https://github.com/skipperbent/ninjaimg-php-sdk"
     },
     "authors": [
         {
@@ -14,11 +26,10 @@
         }
     ],
     "require": {
-        "pecee/http-service": "1.*"
+        "pecee/http-service": "2.*"
     },
     "require-dev": {
-        "pecee/http-service": "1.*",
-        "phpunit/phpunit": "4.7.7"
+        "phpunit/phpunit": "4.*"
     },
     "autoload": {
         "psr-4": {

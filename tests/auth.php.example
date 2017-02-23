@@ -1,0 +1,4 @@
+<?php
+
+const NINJAIMG_DOMAIN = '';
+const NINJAIMG_API_TOKEN = '';

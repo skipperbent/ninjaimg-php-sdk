@@ -40,6 +40,15 @@ $url = new \NinjaImg\NinjaImage('http://example.ninjaimg.com/destination/path/fi
 return $url->height(200)->width(200)->getUrl();
 ```
 
+## Generating text
+
+```php
+$text = new \NinjaImg\NinjaText('example.ninjaimg.com');
+$text->text('Hello world');
+
+return $text->textFont('Arial')->getUrl();
+```
+
 #### Response
 
 ```

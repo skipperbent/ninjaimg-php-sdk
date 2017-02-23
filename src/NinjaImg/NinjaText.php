@@ -1,7 +1,7 @@
 <?php
 namespace NinjaImg;
 
-class NinjaImage
+class NinjaText
 {
     const FIT_CLAMP = 'clamp';
     const FIT_CLIP = 'clip';
@@ -25,8 +25,6 @@ class NinjaImage
     const FORMAT_JPG = 'jpg';
     const FORMAT_GIF = 'gif';
     const FORMAT_BMP = 'bmp';
-
-    const TEXT_FIT_MAX = 'max';
 
     public static $fits = [
         self::FIT_CLAMP,
@@ -57,17 +55,13 @@ class NinjaImage
         self::FORMAT_BMP,
     ];
 
-    public static $textFits = [
-        self::TEXT_FIT_MAX,
-    ];
-
-    protected $url;
+    protected $domain;
     protected $data;
 
-    public function __construct($url)
+    public function __construct($domain)
     {
-        $this->url  = $url;
-        $this->data = [];
+        $this->domain = $domain;
+        $this->data   = [];
     }
 
     public function size($width, $height)
@@ -87,7 +81,7 @@ class NinjaImage
 
     public function fit($fit)
     {
-        if (!in_array($fit, static::$fits)) {
+        if (!in_array($fit, self::$fits)) {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', static::$fits));
         }
 
@@ -112,79 +106,6 @@ class NinjaImage
     public function textSize($size)
     {
         return $this->addParam('txtsize', $size);
-    }
-
-    public function textPadding($padding)
-    {
-        return $this->addParam('txtpad', $padding);
-    }
-
-    public function textFit($fit)
-    {
-        if (in_array($fit, static::$textFits) === false) {
-            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', static::$textFits));
-        }
-
-        return $this->addParam('txtfit', $fit);
-    }
-
-    public function textAlign($align)
-    {
-        return $this->addParam('txtalign', $align);
-    }
-
-    public function watermark($url)
-    {
-        return $this->addParam('mark', $url);
-    }
-
-    public function watermarkAlign($align)
-    {
-        return $this->addParam('markalign', $align);
-    }
-
-    public function watermarkAlpha($opacity)
-    {
-        return $this->addParam('markalpha', $opacity);
-    }
-
-    public function watermarkFit($fit)
-    {
-        if (in_array($fit, static::$fits) === false) {
-            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', static::$fits));
-        }
-
-        return $this->addParam('markfit', $fit);
-    }
-
-    public function watermarkWidth($width)
-    {
-        return $this->addParam('markw', $width);
-    }
-
-    public function watermarkHeight($height)
-    {
-        return $this->addParam('markh', $height);
-    }
-
-    public function watermarkScale($scale)
-    {
-        return $this->addParam('markscale', $scale);
-    }
-
-    public function watermarkX($x)
-    {
-        return $this->addParam('markx', $x);
-    }
-
-    public function watermarkY($y)
-    {
-        return $this->addParam('marky', $y);
-    }
-
-    public function watermarkPadding($padding)
-    {
-        return $this->addParam('markpad', $padding);
     }
 
     public function quality($quality)
@@ -236,13 +157,6 @@ class NinjaImage
         return $this->addParam('blur', $amount);
     }
 
-    public function getUrl()
-    {
-        $url = parse_url($this->url);
-
-        return '//' . $url['host'] . $url['path'] . ((count($this->data) > 0) ? '?' . http_build_query($this->data) : '');
-    }
-
     public function crop($format = self::CROP_DEFAULT)
     {
         if (in_array($format, static::$crops) === false) {
@@ -267,16 +181,6 @@ class NinjaImage
         return $this->addParam('bg', $color);
     }
 
-    public function preview()
-    {
-        return $this->addParam('preview', 'true');
-    }
-
-    public function previewSeconds($seconds)
-    {
-        return $this->addParam('sec', $seconds);
-    }
-
     public function addParam($name, $value)
     {
         $this->data[$name] = $value;
@@ -284,9 +188,9 @@ class NinjaImage
         return $this;
     }
 
-    public function __toString()
+    public function getUrl()
     {
-        return $this->getUrl();
+        return '//' . $this->domain . '/~text' . ((count($this->data) > 0) ? '?' . http_build_query($this->data) : '');
     }
 
 }
