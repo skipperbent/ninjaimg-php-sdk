@@ -85,10 +85,16 @@ class NinjaImage
         return $this->addParam('h', $height);
     }
 
-    public function fit($fit)
-    {
-        if (!in_array($fit, static::$fits)) {
-            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', static::$fits));
+    /**
+     * Fit image
+     *
+     * @param string $fit
+     * @return NinjaImage
+     * @throws NinjaException
+     */
+    public function fit($fit) {
+        if(in_array($fit, static::$fits, true) === false) {
+            throw new NinjaException('Invalid value for fit. Valid values are: ' . implode(', ', static::$fits));
         }
 
         return $this->addParam('fit', $fit);
@@ -119,10 +125,15 @@ class NinjaImage
         return $this->addParam('txtpad', $padding);
     }
 
-    public function textFit($fit)
-    {
-        if (in_array($fit, static::$textFits) === false) {
-            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', static::$textFits));
+    /**
+     * Text fit
+     * @param string $fit
+     * @return NinjaImage
+     * @throws NinjaException
+     */
+    public function textFit($fit) {
+        if(in_array($fit, static::$textFits, true) === false) {
+            throw new NinjaException('Invalid value for fit. Valid values are: ' . implode(', ', static::$textFits));
         }
 
         return $this->addParam('txtfit', $fit);
@@ -148,10 +159,16 @@ class NinjaImage
         return $this->addParam('markalpha', $opacity);
     }
 
-    public function watermarkFit($fit)
-    {
-        if (in_array($fit, static::$fits) === false) {
-            throw new NinjaException('Invalid value for fit. Valid values are: ' . join(', ', static::$fits));
+    /**
+     * Watermark fit
+     *
+     * @param string $fit
+     * @return NinjaImage
+     * @throws NinjaException
+     */
+    public function watermarkFit($fit) {
+        if(in_array($fit, static::$fits, true) === false) {
+            throw new NinjaException('Invalid value for fit. Valid values are: ' . implode(', ', static::$fits));
         }
 
         return $this->addParam('markfit', $fit);
@@ -207,10 +224,16 @@ class NinjaImage
         return $this->addParam('bri', $brightness);
     }
 
-    public function format($format)
-    {
-        if (in_array($format, static::$formats) === false) {
-            throw new NinjaException('Invalid value for format. Valid values are: ' . join(', ', static::$formats));
+    /**
+     * Format
+     *
+     * @param string $format
+     * @return NinjaImage
+     * @throws NinjaException
+     */
+    public function format($format) {
+        if(in_array($format, static::$formats, true) === false) {
+            throw new NinjaException('Invalid value for format. Valid values are: ' . implode(', ', static::$formats));
         }
 
         return $this->addParam('fm', $format);
@@ -240,13 +263,18 @@ class NinjaImage
     {
         $url = parse_url($this->url);
 
-        return '//' . $url['host'] . $url['path'] . ((count($this->data) > 0) ? '?' . http_build_query($this->data) : '');
+        return '//' . $url['host'] . $url['path'] . (count($this->data) > 0 ? '?' . http_build_query($this->data) : '');
     }
 
-    public function crop($format = self::CROP_DEFAULT)
-    {
-        if (in_array($format, static::$crops) === false) {
-            throw new NinjaException('Invalid crop type. Valid crop types are: ' . join(', ', static::$crops));
+    /**
+     * Crop format
+     * @param string $format
+     * @return NinjaImage
+     * @throws NinjaException
+     */
+    public function crop($format = self::CROP_DEFAULT) {
+        if(in_array($format, static::$crops, true) === false) {
+            throw new NinjaException('Invalid crop type. Valid crop types are: ' . implode(', ', static::$crops));
         }
 
         return $this->addParam('crop', $format);

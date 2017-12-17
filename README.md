@@ -1,11 +1,14 @@
-# NinjaImg PHP SDK
+# ninjaimg/php-sdk
+
 Official PHP SDK for the NinjaImg service
 
 ## Installing the SDK
 
 Add the latest version of the NinjaImg SDK by running the following command:
 
-```composer require ninjaimg/php-sdk```
+```
+composer require ninjaimg/php-sdk
+```
 
 ## Uploading file
 
@@ -57,7 +60,7 @@ return $text->textFont('Arial')->getUrl();
 
 ## The MIT License (MIT)
 
-Copyright (c) 2016 ninjaimg
+Copyright (c) 2016 ninjaimg.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
