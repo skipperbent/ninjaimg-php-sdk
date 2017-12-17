@@ -1,4 +1,5 @@
 <?php
+
 namespace NinjaImg;
 
 use Pecee\Http\Rest\RestBase;
@@ -11,7 +12,7 @@ class NinjaUpload extends RestBase
 
     public function __construct($domain, $apiToken)
     {
-        $this->domain   = $domain;
+        $this->domain = $domain;
         $this->apiToken = $apiToken;
 
         parent::__construct();
@@ -19,7 +20,7 @@ class NinjaUpload extends RestBase
 
     public function getServiceUrl()
     {
-        return (($this->disableHttps === true) ? 'http' : 'https') . '://' . $this->domain . '/api';
+        return ($this->disableHttps === true ? 'http' : 'https') . '://' . $this->domain . '/api';
     }
 
     /**
@@ -38,7 +39,9 @@ class NinjaUpload extends RestBase
 
         $this->httpRequest->setRawPostData($fileContents);
 
-        return $this->api($destinationPath, self::METHOD_POST)->url;
+        $response = $this->api($destinationPath, static::METHOD_POST);
+
+        return $response['url'];
     }
 
     /**
@@ -56,11 +59,11 @@ class NinjaUpload extends RestBase
     }
 
     /**
-     * Delete file
+     * Delete single file
      *
      * @param string $path
      *
-     * @return bool
+     * @return array
      * @throws NinjaException
      */
     public function delete($path)
@@ -69,13 +72,10 @@ class NinjaUpload extends RestBase
 
         // Parse full url
         if ($path[0] !== '/') {
-            $url  = parse_url($path);
-            $path = $url['path'];
+            $path = parse_url($path, PHP_URL_PATH);
         }
 
-        $this->api($path, static::METHOD_DELETE);
-
-        return true;
+        return $this->api($path, static::METHOD_DELETE);
     }
 
     /**
@@ -83,7 +83,7 @@ class NinjaUpload extends RestBase
      *
      * @param array $paths
      *
-     * @return bool
+     * @return array
      * @throws NinjaException
      */
     public function deleteBatch(array $paths)
@@ -94,19 +94,31 @@ class NinjaUpload extends RestBase
         return $this->api('/batch', static::METHOD_DELETE);
     }
 
-    public function api($url = null, $method = self::METHOD_GET, array $data = array())
+    /**
+     * Execute api
+     *
+     * @param string|null $url
+     * @param string $method
+     * @param array $data
+     *
+     * @return array
+     * @throws NinjaException
+     */
+    public function api($url = null, $method = self::METHOD_GET, array $data = [])
     {
         $httpResponse = null;
 
         try {
+            $this->httpRequest->setReturnHeader(false);
+
             $httpResponse = parent::api($url, $method, $data);
 
-            $response = json_decode($httpResponse->getResponse());
+            $response = json_decode($httpResponse->getResponse(), true);
 
-            if ($response === null || $response === false || (isset($response->error) && $response->error)) {
+            if ($response === null || $response === false || isset($response['error']) === true) {
 
-                $error = isset($response->error) ? $response->error : 'Invalid response';
-                $code  = isset($response->code) ? $response->code : $httpResponse->getStatusCode();
+                $error = isset($response['error']) === true ? $response['error'] : 'Invalid response';
+                $code = isset($response['code']) === true ? $response['code'] : $httpResponse->getStatusCode();
 
                 throw new NinjaException($error, $code, $httpResponse);
             }
@@ -120,11 +132,14 @@ class NinjaUpload extends RestBase
 
     /**
      * Disable https
+     *
+     * @param bool $value
      * @return static
      */
-    public function setDisableHttps()
+    public function setDisableHttps($value = true)
     {
-        $this->disableHttps = true;
+        $this->disableHttps = $value;
+
         return $this;
     }
 

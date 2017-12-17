@@ -1,4 +1,4 @@
 <?php
 
-const NINJAIMG_DOMAIN = '';
-const NINJAIMG_API_TOKEN = '';
+$ninjaDomain = 'mydomain.ninjaimg.com';
+$ninjaApiToken = 'e10adc3949ba59abbe56e057f20f883e';

@@ -1,9 +1,10 @@
 <?php
+
 namespace NinjaImg;
 
-use Pecee\Http\Rest\RestException;
+use Pecee\Http\HttpException;
 
-class NinjaException extends RestException
+class NinjaException extends HttpException
 {
 
 }
