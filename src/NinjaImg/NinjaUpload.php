@@ -7,6 +7,8 @@ use Pecee\Http\Rest\RestBase;
 
 class NinjaUpload extends RestBase
 {
+    const ENDPOINT_URL = '/api/v1';
+
     protected $disableHttps = false;
     protected $domain;
     protected $apiToken;
@@ -21,7 +23,11 @@ class NinjaUpload extends RestBase
 
     public function getServiceUrl()
     {
-        return ($this->disableHttps === true ? 'http' : 'https') . '://' . $this->domain . '/api';
+        return sprintf(
+            '%s://%s%s',
+            $this->disableHttps === true ? 'http' : 'https',
+            $this->domain,
+            static::ENDPOINT_URL);
     }
 
     /**
