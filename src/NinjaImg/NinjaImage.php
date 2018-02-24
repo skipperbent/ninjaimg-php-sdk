@@ -1,4 +1,5 @@
 <?php
+
 namespace NinjaImg;
 
 class NinjaImage
@@ -66,7 +67,7 @@ class NinjaImage
 
     public function __construct($url)
     {
-        $this->url  = $url;
+        $this->url = $url;
         $this->data = [];
     }
 
@@ -92,8 +93,9 @@ class NinjaImage
      * @return NinjaImage
      * @throws NinjaException
      */
-    public function fit($fit) {
-        if(in_array($fit, static::$fits, true) === false) {
+    public function fit($fit)
+    {
+        if (in_array($fit, static::$fits, true) === false) {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . implode(', ', static::$fits));
         }
 
@@ -131,8 +133,9 @@ class NinjaImage
      * @return NinjaImage
      * @throws NinjaException
      */
-    public function textFit($fit) {
-        if(in_array($fit, static::$textFits, true) === false) {
+    public function textFit($fit)
+    {
+        if (in_array($fit, static::$textFits, true) === false) {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . implode(', ', static::$textFits));
         }
 
@@ -166,8 +169,9 @@ class NinjaImage
      * @return NinjaImage
      * @throws NinjaException
      */
-    public function watermarkFit($fit) {
-        if(in_array($fit, static::$fits, true) === false) {
+    public function watermarkFit($fit)
+    {
+        if (in_array($fit, static::$fits, true) === false) {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . implode(', ', static::$fits));
         }
 
@@ -231,8 +235,9 @@ class NinjaImage
      * @return NinjaImage
      * @throws NinjaException
      */
-    public function format($format) {
-        if(in_array($format, static::$formats, true) === false) {
+    public function format($format)
+    {
+        if (in_array($format, static::$formats, true) === false) {
             throw new NinjaException('Invalid value for format. Valid values are: ' . implode(', ', static::$formats));
         }
 
@@ -272,8 +277,9 @@ class NinjaImage
      * @return NinjaImage
      * @throws NinjaException
      */
-    public function crop($format = self::CROP_DEFAULT) {
-        if(in_array($format, static::$crops, true) === false) {
+    public function crop($format = self::CROP_DEFAULT)
+    {
+        if (in_array($format, static::$crops, true) === false) {
             throw new NinjaException('Invalid crop type. Valid crop types are: ' . implode(', ', static::$crops));
         }
 

@@ -2,6 +2,7 @@
 
 namespace NinjaImg;
 
+use NinjaImg\Response\NinjaResponse;
 use Pecee\Http\Rest\RestBase;
 
 class NinjaUpload extends RestBase
@@ -24,10 +25,12 @@ class NinjaUpload extends RestBase
     }
 
     /**
+     * Upload file to ninjaimg
+     *
      * @param string $fileContents Binary content of file
      * @param string $destinationPath Full destination path including extension
      *
-     * @return string Returns url for upload on ImgNinja
+     * @return NinjaResponse Returns response object
      * @throws NinjaException
      */
     public function upload($fileContents, $destinationPath)
@@ -39,9 +42,40 @@ class NinjaUpload extends RestBase
 
         $this->httpRequest->setRawPostData($fileContents);
 
-        $response = $this->api($destinationPath, static::METHOD_POST);
+        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST));
+    }
 
-        return $response['url'];
+    /**
+     * Upload and convert video.
+     *
+     * NinjaImg will convert the file to the format specified as extension in the $destinationPath parameter
+     * unless another format has been specified using the $outputFormat parameter.
+     *
+     * @param string $fileContents Binary content of file
+     * @param string $destinationPath Full destination path including extension
+     * @param string|null $outputFormat Optional format you want the video converted to (mp3, mp4, avi etc.)
+     *
+     * @return NinjaResponse Returns response object
+     * @throws NinjaException
+     */
+    public function convertVideo($fileContents, $destinationPath, $outputFormat = null)
+    {
+
+        $this->httpRequest->setHeaders([
+            'X-Auth-Token: ' . $this->apiToken,
+        ]);
+
+        $this->httpRequest->setRawPostData($fileContents);
+
+        $separator = strpos($destinationPath, '?') !== false ? '&' : '?';
+
+        $destinationPath .= $separator . 'convert=true';
+
+        if ($outputFormat !== null) {
+            $destinationPath .= '&format=' . $outputFormat;
+        }
+
+        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST));
     }
 
     /**
@@ -50,7 +84,7 @@ class NinjaUpload extends RestBase
      * @param string $fileContents Binary content of file
      * @param string $destinationPath Full destination path including extension
      *
-     * @return string Returns url for upload on ImgNinja
+     * @return NinjaResponse Returns response object
      * @throws NinjaException
      */
     public function update($fileContents, $destinationPath)
