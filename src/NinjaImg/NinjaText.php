@@ -1,4 +1,5 @@
 <?php
+
 namespace NinjaImg;
 
 class NinjaText
@@ -61,7 +62,7 @@ class NinjaText
     public function __construct($domain)
     {
         $this->domain = $domain;
-        $this->data   = [];
+        $this->data = [];
     }
 
     public function size($width, $height)
@@ -112,6 +113,26 @@ class NinjaText
     public function textSize($size)
     {
         return $this->addParam('txtsize', $size);
+    }
+
+    public function textPadding($padding)
+    {
+        return $this->addParam('txtpad', $padding);
+    }
+
+    public function textOutline($size)
+    {
+        return $this->addParam('txtline', $size);
+    }
+
+    public function textOutlineColor($color)
+    {
+        return $this->addParam('txtlineclr', $color);
+    }
+
+    public function textAngle($angle)
+    {
+        return $this->addParam('txtangle', $angle);
     }
 
     public function quality($quality)
