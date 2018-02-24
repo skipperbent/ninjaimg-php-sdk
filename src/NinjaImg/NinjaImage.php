@@ -63,11 +63,13 @@ class NinjaImage
     ];
 
     protected $url;
+    protected $domain;
     protected $data;
 
-    public function __construct($url)
+    public function __construct($url, $domain = null)
     {
         $this->url = $url;
+        $this->domain = $domain;
         $this->data = [];
     }
 
@@ -266,9 +268,23 @@ class NinjaImage
 
     public function getUrl()
     {
-        $url = parse_url($this->url);
+        $urlParts = parse_url($this->url);
 
-        return '//' . $url['host'] . $url['path'] . (count($this->data) > 0 ? '?' . http_build_query($this->data) : '');
+        $url = '';
+
+        if (isset($url['host']) === true) {
+            $url .= '//' . $url['host'];
+        } elseif ($this->domain !== null) {
+            $url .= '//' . $this->domain;
+        }
+
+        $url .= $urlParts['path'];
+
+        if (count($this->data) > 0) {
+            $url .= '?' . http_build_query($this->data);
+        }
+
+        return $url;
     }
 
     /**
@@ -316,6 +332,18 @@ class NinjaImage
         $this->data[$name] = $value;
 
         return $this;
+    }
+
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+
+        return $this;
+    }
+
+    public function getDomain()
+    {
+        return $this->domain;
     }
 
     public function __toString()
