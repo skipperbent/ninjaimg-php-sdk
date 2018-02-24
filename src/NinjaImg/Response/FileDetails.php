@@ -12,36 +12,72 @@ class FileDetails
         $this->fileDetails = $fileDetails;
     }
 
+    /**
+     * Get file name
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->fileDetails['name'];
     }
 
+    /**
+     * Get file size
+     *
+     * @return int
+     */
     public function getSize()
     {
-        return $this->fileDetails['size'];
+        return (int)$this->fileDetails['size'];
     }
 
+    /**
+     * Get mime type
+     *
+     * @return string
+     */
     public function getMime()
     {
         return $this->fileDetails['mime'];
     }
 
+    /**
+     * Get file extension
+     *
+     * @return string
+     */
     public function getExtension()
     {
         return $this->fileDetails['extension'];
     }
 
+    /**
+     * Get original mime type.
+     * Note: only available when converting files.
+     *
+     * @return string|null
+     */
     public function getOriginalMime()
     {
         return isset($this->fileDetails['original_mime']) ? $this->fileDetails['original_mime'] : null;
     }
 
+    /**
+     * Get original file size.
+     * Note: only available when converting files.
+     *
+     * @return int|null
+     */
     public function getOriginalSize()
     {
         return isset($this->fileDetails['original_size']) ? $this->fileDetails['original_size'] : null;
     }
 
+    /**
+     * Get array
+     * @return array
+     */
     public function toArray()
     {
         return $this->fileDetails;
