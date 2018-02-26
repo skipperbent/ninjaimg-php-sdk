@@ -75,6 +75,26 @@ class FileDetails
     }
 
     /**
+     * Get image width
+     *
+     * @return int|null
+     */
+    public function getWidth()
+    {
+        return isset($this->fileDetails['width']) ? $this->fileDetails['width'] : null;
+    }
+
+    /**
+     * Get image height
+     *
+     * @return int|null
+     */
+    public function getHeight()
+    {
+        return isset($this->fileDetails['height']) ? $this->fileDetails['height'] : null;
+    }
+
+    /**
      * Get array
      * @return array
      */
