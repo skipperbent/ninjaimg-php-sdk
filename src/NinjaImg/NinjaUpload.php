@@ -45,6 +45,8 @@ class NinjaUpload extends RestBase
             'X-Auth-Token: ' . $this->apiToken,
         ]);
 
+        $this->httpRequest->setContentType('application/x-www-form-urlencoded');
+
         return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST, ['url' => $url]));
     }
 
