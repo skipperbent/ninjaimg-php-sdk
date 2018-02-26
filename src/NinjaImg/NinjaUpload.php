@@ -31,6 +31,24 @@ class NinjaUpload extends RestBase
     }
 
     /**
+     * Upload file by url
+     *
+     * @param string $url
+     * @param string $destinationPath
+     *
+     * @return NinjaResponse
+     * @throws NinjaException
+     */
+    public function uploadByUrl($url, $destinationPath)
+    {
+        $this->httpRequest->setHeaders([
+            'X-Auth-Token: ' . $this->apiToken,
+        ]);
+
+        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST, ['url' => $url]));
+    }
+
+    /**
      * Upload file to ninjaimg
      *
      * @param string $fileContents Binary content of file
