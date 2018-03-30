@@ -268,12 +268,11 @@ class NinjaImage
 
     public function getUrl()
     {
+        $url = '';
         $urlParts = parse_url($this->url);
 
-        $url = '';
-
-        if (isset($url['host']) === true) {
-            $url .= '//' . $url['host'];
+        if (isset($urlParts['host']) === true) {
+            $url .= '//' . $urlParts['host'];
         } elseif ($this->domain !== null) {
             $url .= '//' . $this->domain;
         }
@@ -315,11 +314,6 @@ class NinjaImage
     public function backgroundColor($color)
     {
         return $this->addParam('bg', $color);
-    }
-
-    public function preview()
-    {
-        return $this->addParam('preview', 'true');
     }
 
     public function previewSeconds($seconds)
