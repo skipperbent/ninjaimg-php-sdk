@@ -7,9 +7,9 @@ use Pecee\Http\HttpResponse;
 class NinjaResponse
 {
 
-    protected $domain;
-    protected $response;
-    protected $httpResponse;
+    protected string $domain;
+    protected array $response;
+    protected HttpResponse $httpResponse;
 
     public function __construct($domain, array $response)
     {
@@ -22,7 +22,7 @@ class NinjaResponse
      *
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->response['url'];
     }
@@ -32,7 +32,7 @@ class NinjaResponse
      *
      * @return string
      */
-    public function getUrlAbsolute()
+    public function getUrlAbsolute(): string
     {
         return sprintf('https://%s%s', $this->domain, $this->getUrlRelative());
     }
@@ -40,7 +40,7 @@ class NinjaResponse
     /**
      * @return string|null
      */
-    public function getUrlRelative()
+    public function getUrlRelative(): ?string
     {
         return $this->response['url_relative'];
     }
@@ -50,7 +50,7 @@ class NinjaResponse
      *
      * @return string
      */
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->response['domain'];
     }
@@ -60,7 +60,7 @@ class NinjaResponse
      *
      * @return FileDetails
      */
-    public function getFileDetails()
+    public function getFileDetails(): FileDetails
     {
         return new FileDetails($this->response['file_details']);
     }
@@ -69,10 +69,10 @@ class NinjaResponse
      * Get response array
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
-            'url'          => $this->getUrl(),
+            'url' => $this->getUrl(),
             'url_absolute' => $this->getUrlAbsolute(),
             'url_relative' => $this->getUrlRelative(),
             'file_details' => $this->getFileDetails()->toArray(),
@@ -84,7 +84,7 @@ class NinjaResponse
      *
      * @return HttpResponse
      */
-    public function getHttpResponse()
+    public function getHttpResponse(): HttpResponse
     {
         return $this->httpResponse;
     }
@@ -95,7 +95,7 @@ class NinjaResponse
      * @param HttpResponse $response
      * @return static $this
      */
-    public function setHttpResponse(HttpResponse $response)
+    public function setHttpResponse(HttpResponse $response): self
     {
         $this->httpResponse = $response;
 
@@ -105,7 +105,7 @@ class NinjaResponse
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->getUrl();
     }

@@ -5,7 +5,7 @@ namespace NinjaImg\Response;
 class FileDetails
 {
 
-    protected $fileDetails;
+    protected array $fileDetails;
 
     public function __construct(array $fileDetails)
     {
@@ -17,7 +17,7 @@ class FileDetails
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->fileDetails['name'];
     }
@@ -27,7 +27,7 @@ class FileDetails
      *
      * @return int
      */
-    public function getSize()
+    public function getSize(): int
     {
         return (int)$this->fileDetails['size'];
     }
@@ -37,7 +37,7 @@ class FileDetails
      *
      * @return string
      */
-    public function getMime()
+    public function getMime(): string
     {
         return $this->fileDetails['mime'];
     }
@@ -47,7 +47,7 @@ class FileDetails
      *
      * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         return $this->fileDetails['extension'];
     }
@@ -58,9 +58,9 @@ class FileDetails
      *
      * @return string|null
      */
-    public function getOriginalMime()
+    public function getOriginalMime(): ?string
     {
-        return isset($this->fileDetails['original_mime']) ? $this->fileDetails['original_mime'] : null;
+        return $this->fileDetails['original_mime'] ?? null;
     }
 
     /**
@@ -69,9 +69,9 @@ class FileDetails
      *
      * @return int|null
      */
-    public function getOriginalSize()
+    public function getOriginalSize(): ?int
     {
-        return isset($this->fileDetails['original_size']) ? $this->fileDetails['original_size'] : null;
+        return $this->fileDetails['original_size'] ?? null;
     }
 
     /**
@@ -79,9 +79,9 @@ class FileDetails
      *
      * @return int|null
      */
-    public function getWidth()
+    public function getWidth(): ?int
     {
-        return isset($this->fileDetails['width']) ? $this->fileDetails['width'] : null;
+        return $this->fileDetails['width'] ?? null;
     }
 
     /**
@@ -89,16 +89,16 @@ class FileDetails
      *
      * @return int|null
      */
-    public function getHeight()
+    public function getHeight(): ?int
     {
-        return isset($this->fileDetails['height']) ? $this->fileDetails['height'] : null;
+        return $this->fileDetails['height'] ?? null;
     }
 
     /**
      * Get array
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->fileDetails;
     }
