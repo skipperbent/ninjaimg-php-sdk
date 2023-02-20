@@ -29,7 +29,7 @@
     }
   ],
   "require": {
-    "pecee/http-service": "2.*",
+    "pecee/http-service": "^3",
     "ext-json": "*"
   },
   "require-dev": {

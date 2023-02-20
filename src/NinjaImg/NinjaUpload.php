@@ -2,7 +2,9 @@
 
 namespace NinjaImg;
 
+use Exception;
 use NinjaImg\Response\NinjaResponse;
+use Pecee\Http\HttpResponse;
 use Pecee\Http\Rest\RestBase;
 
 class NinjaUpload extends RestBase
@@ -47,7 +49,7 @@ class NinjaUpload extends RestBase
 
         $this->httpRequest->setContentType('application/x-www-form-urlencoded');
 
-        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST, ['url' => $url]));
+        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST, ['url' => $url])->getResponseArray());
     }
 
     /**
@@ -67,7 +69,7 @@ class NinjaUpload extends RestBase
 
         $this->httpRequest->setRawPostData($fileContents);
 
-        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST));
+        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST)->getResponseArray());
     }
 
     /**
@@ -99,7 +101,7 @@ class NinjaUpload extends RestBase
             $destinationPath .= '&format=' . $outputFormat;
         }
 
-        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST));
+        return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST)->getResponseArray());
     }
 
     /**
@@ -133,7 +135,7 @@ class NinjaUpload extends RestBase
             $path = parse_url($path, PHP_URL_PATH);
         }
 
-        return $this->api($path, static::METHOD_DELETE);
+        return $this->api($path, static::METHOD_DELETE)->getResponseArray();
     }
 
     /**
@@ -149,7 +151,7 @@ class NinjaUpload extends RestBase
         $this->httpRequest->addHeader('X-Auth-Token: ' . $this->apiToken);
         $this->httpRequest->setRawPostData(json_encode($paths));
 
-        return $this->api('/batch', static::METHOD_DELETE);
+        return $this->api('/batch', static::METHOD_DELETE)->getResponseArray();
     }
 
     /**
@@ -159,10 +161,10 @@ class NinjaUpload extends RestBase
      * @param string $method
      * @param array $data
      *
-     * @return array
+     * @return HttpResponse
      * @throws NinjaException
      */
-    public function api($url = null, $method = self::METHOD_GET, array $data = []): array
+    public function api(?string $url = null, string $method = self::METHOD_GET, array $data = []): HttpResponse
     {
         $httpResponse = null;
 
@@ -183,7 +185,7 @@ class NinjaUpload extends RestBase
 
             return $response;
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new NinjaException($e->getMessage(), $e->getCode(), $httpResponse);
         }
     }
