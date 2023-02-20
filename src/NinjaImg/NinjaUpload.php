@@ -9,9 +9,9 @@ class NinjaUpload extends RestBase
 {
     const ENDPOINT_URL = '/api/v1';
 
-    protected $disableHttps = false;
-    protected $domain;
-    protected $apiToken;
+    protected bool $disableHttps = false;
+    protected string $domain;
+    protected string $apiToken;
 
     public function __construct($domain, $apiToken)
     {
@@ -21,7 +21,7 @@ class NinjaUpload extends RestBase
         parent::__construct();
     }
 
-    public function getServiceUrl()
+    public function getServiceUrl(): string
     {
         return sprintf(
             '%s://%s%s',
@@ -39,7 +39,7 @@ class NinjaUpload extends RestBase
      * @return NinjaResponse
      * @throws NinjaException
      */
-    public function uploadByUrl($url, $destinationPath)
+    public function uploadByUrl(string $url, string $destinationPath): NinjaResponse
     {
         $this->httpRequest->setHeaders([
             'X-Auth-Token: ' . $this->apiToken,
@@ -59,9 +59,8 @@ class NinjaUpload extends RestBase
      * @return NinjaResponse Returns response object
      * @throws NinjaException
      */
-    public function upload($fileContents, $destinationPath)
+    public function upload(string $fileContents, string $destinationPath): NinjaResponse
     {
-
         $this->httpRequest->setHeaders([
             'X-Auth-Token: ' . $this->apiToken,
         ]);
@@ -84,9 +83,8 @@ class NinjaUpload extends RestBase
      * @return NinjaResponse Returns response object
      * @throws NinjaException
      */
-    public function convertVideo($fileContents, $destinationPath, $outputFormat = null)
+    public function convertVideo(string $fileContents, string $destinationPath, ?string $outputFormat = null): NinjaResponse
     {
-
         $this->httpRequest->setHeaders([
             'X-Auth-Token: ' . $this->apiToken,
         ]);
@@ -113,7 +111,7 @@ class NinjaUpload extends RestBase
      * @return NinjaResponse Returns response object
      * @throws NinjaException
      */
-    public function update($fileContents, $destinationPath)
+    public function update(string $fileContents, string $destinationPath): NinjaResponse
     {
         return $this->upload($fileContents, $destinationPath);
     }
@@ -126,7 +124,7 @@ class NinjaUpload extends RestBase
      * @return array
      * @throws NinjaException
      */
-    public function delete($path)
+    public function delete(string $path): array
     {
         $this->httpRequest->addHeader('X-Auth-Token: ' . $this->apiToken);
 
@@ -146,7 +144,7 @@ class NinjaUpload extends RestBase
      * @return array
      * @throws NinjaException
      */
-    public function deleteBatch(array $paths)
+    public function deleteBatch(array $paths): array
     {
         $this->httpRequest->addHeader('X-Auth-Token: ' . $this->apiToken);
         $this->httpRequest->setRawPostData(json_encode($paths));
@@ -164,7 +162,7 @@ class NinjaUpload extends RestBase
      * @return array
      * @throws NinjaException
      */
-    public function api($url = null, $method = self::METHOD_GET, array $data = [])
+    public function api($url = null, $method = self::METHOD_GET, array $data = []): array
     {
         $httpResponse = null;
 
@@ -196,7 +194,7 @@ class NinjaUpload extends RestBase
      * @param bool $value
      * @return static
      */
-    public function setDisableHttps($value = true)
+    public function setDisableHttps(bool $value = true): self
     {
         $this->disableHttps = $value;
 
@@ -207,7 +205,7 @@ class NinjaUpload extends RestBase
      * Returns full domain name for you app on ImgNinja
      * @return string
      */
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->domain;
     }
@@ -217,7 +215,7 @@ class NinjaUpload extends RestBase
      *
      * @param string $domain
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): void
     {
         $this->domain = $domain;
     }

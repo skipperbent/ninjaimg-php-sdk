@@ -29,7 +29,8 @@
     }
   ],
   "require": {
-    "pecee/http-service": "2.*"
+    "pecee/http-service": "2.*",
+    "ext-json": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "5.*"
