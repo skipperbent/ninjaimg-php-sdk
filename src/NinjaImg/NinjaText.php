@@ -27,7 +27,7 @@ class NinjaText
     const FORMAT_GIF = 'gif';
     const FORMAT_BMP = 'bmp';
 
-    public static $fits = [
+    public static array $fits = [
         self::FIT_CLAMP,
         self::FIT_CLIP,
         self::FIT_CROP,
@@ -36,7 +36,7 @@ class NinjaText
         self::FIT_SCALE,
     ];
 
-    public static $crops = [
+    public static array $crops = [
         self::CROP_DEFAULT,
         self::CROP_BOTTOM,
         self::CROP_BOTTOM_LEFT,
@@ -48,7 +48,7 @@ class NinjaText
         self::CROP_TOP_RIGHT,
     ];
 
-    public static $formats = [
+    public static array $formats = [
         self::FORMAT_AUTO,
         self::FORMAT_GIF,
         self::FORMAT_JPG,
@@ -56,8 +56,8 @@ class NinjaText
         self::FORMAT_BMP,
     ];
 
-    protected $domain;
-    protected $data;
+    protected string $domain;
+    protected array $data;
 
     public function __construct($domain)
     {
@@ -65,17 +65,17 @@ class NinjaText
         $this->data = [];
     }
 
-    public function size($width, $height)
+    public function size(int $width, int $height): self
     {
         return $this->width($width)->height($height);
     }
 
-    public function width($width)
+    public function width(int $width): self
     {
         return $this->addParam('w', $width);
     }
 
-    public function height($height)
+    public function height(int $height): self
     {
         return $this->addParam('h', $height);
     }
@@ -86,7 +86,7 @@ class NinjaText
      * @return NinjaText
      * @throws NinjaException
      */
-    public function fit($fit)
+    public function fit(string $fit): self
     {
         if (in_array($fit, static::$fits, true) === false) {
             throw new NinjaException('Invalid value for fit. Valid values are: ' . implode(', ', static::$fits));
@@ -95,62 +95,62 @@ class NinjaText
         return $this->addParam('fit', $fit);
     }
 
-    public function text($text)
+    public function text(string $text): self
     {
         return $this->addParam('txt', $text);
     }
 
-    public function textFont($font)
+    public function textFont(string $font): self
     {
         return $this->addParam('txtfont', $font);
     }
 
-    public function textColor($hexColor)
+    public function textColor(string $hexColor): self
     {
         return $this->addParam('txtclr', $hexColor);
     }
 
-    public function textSize($size)
+    public function textSize(int $size): self
     {
         return $this->addParam('txtsize', $size);
     }
 
-    public function textPadding($padding)
+    public function textPadding(int $padding): self
     {
         return $this->addParam('txtpad', $padding);
     }
 
-    public function textOutline($size)
+    public function textOutline(int $size): self
     {
         return $this->addParam('txtline', $size);
     }
 
-    public function textOutlineColor($color)
+    public function textOutlineColor(string $color): self
     {
         return $this->addParam('txtlineclr', $color);
     }
 
-    public function textAngle($angle)
+    public function textAngle(string $angle): self
     {
         return $this->addParam('txtangle', $angle);
     }
 
-    public function quality($quality)
+    public function quality(string $quality): self
     {
         return $this->addParam('q', $quality);
     }
 
-    public function gamma($gamma)
+    public function gamma(int $gamma): self
     {
         return $this->addParam('gam', $gamma);
     }
 
-    public function contrast($contrast)
+    public function contrast(int $contrast): self
     {
         return $this->addParam('con', $contrast);
     }
 
-    public function brightness($brightness)
+    public function brightness(int $brightness): self
     {
         return $this->addParam('bri', $brightness);
     }
@@ -161,7 +161,7 @@ class NinjaText
      * @return NinjaText
      * @throws NinjaException
      */
-    public function format($format)
+    public function format(string $format): self
     {
         if (in_array($format, static::$formats, true) === false) {
             throw new NinjaException('Invalid value for format. Valid values are: ' . implode(', ', static::$formats));
@@ -170,22 +170,22 @@ class NinjaText
         return $this->addParam('fm', $format);
     }
 
-    public function rotation($rotation)
+    public function rotation(string $rotation): self
     {
         return $this->addParam('rot', $rotation);
     }
 
-    public function orientation($orientation)
+    public function orientation(string $orientation): self
     {
         return $this->addParam('or', $orientation);
     }
 
-    public function flip($flip)
+    public function flip(string $flip): self
     {
         return $this->addParam('fli', $flip);
     }
 
-    public function blur($amount)
+    public function blur(int $amount): self
     {
         return $this->addParam('blur', $amount);
     }
@@ -197,7 +197,7 @@ class NinjaText
      * @return NinjaText
      * @throws NinjaException
      */
-    public function crop($format = self::CROP_DEFAULT)
+    public function crop(string $format = self::CROP_DEFAULT): self
     {
         if (in_array($format, static::$crops, true) === false) {
             throw new NinjaException('Invalid crop type. Valid crop types are: ' . implode(', ', static::$crops));
@@ -206,29 +206,29 @@ class NinjaText
         return $this->addParam('crop', $format);
     }
 
-    public function opacity($amount)
+    public function opacity(int $amount): self
     {
         return $this->addParam('opa', $amount);
     }
 
-    public function mask($image)
+    public function mask(string $image): self
     {
         return $this->addParam('mask', $image);
     }
 
-    public function backgroundColor($color)
+    public function backgroundColor(string $color): self
     {
         return $this->addParam('bg', $color);
     }
 
-    public function addParam($name, $value)
+    public function addParam(string $name, string $value): self
     {
         $this->data[$name] = $value;
 
         return $this;
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         return '//' . $this->domain . '/~text' . ((count($this->data) > 0) ? '?' . http_build_query($this->data) : '');
     }
