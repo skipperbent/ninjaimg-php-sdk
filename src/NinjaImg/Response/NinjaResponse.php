@@ -71,35 +71,17 @@ class NinjaResponse
      */
     public function toArray(): array
     {
-        return [
+        return array_merge($this->getResponse(), [
             'url' => $this->getUrl(),
             'url_absolute' => $this->getUrlAbsolute(),
             'url_relative' => $this->getUrlRelative(),
             'file_details' => $this->getFileDetails()->toArray(),
-        ];
+        ]);
     }
 
-    /**
-     * Get http response
-     *
-     * @return HttpResponse
-     */
-    public function getHttpResponse(): HttpResponse
+    public function getResponse(): array
     {
-        return $this->httpResponse;
-    }
-
-    /**
-     * Set raw http response
-     *
-     * @param HttpResponse $response
-     * @return static $this
-     */
-    public function setHttpResponse(HttpResponse $response): self
-    {
-        $this->httpResponse = $response;
-
-        return $this;
+        return $this->response;
     }
 
     /**
