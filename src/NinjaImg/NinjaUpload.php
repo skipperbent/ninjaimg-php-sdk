@@ -164,7 +164,7 @@ class NinjaUpload extends RestBase
      * @return HttpResponse
      * @throws NinjaException
      */
-    public function api(?string $url = null, string $method = self::METHOD_GET, array $data = []): HttpResponse
+    public function api(?string $url = null, string $method = self::METHOD_GET, array $data = [])
     {
         $httpResponse = null;
 
@@ -173,17 +173,15 @@ class NinjaUpload extends RestBase
 
             $httpResponse = parent::api($url, $method, $data);
 
-            $response = json_decode($httpResponse->getResponse(), true);
+            if (isset($response['error']) === true) {
 
-            if ($response === null || $response === false || isset($response['error']) === true) {
-
-                $error = isset($response['error']) === true ? $response['error'] : 'Invalid response';
-                $code = isset($response['code']) === true ? $response['code'] : $httpResponse->getStatusCode();
+                $error = $response['error'] ?? 'Invalid response';
+                $code = $response['code'] ?? $httpResponse->getStatusCode();
 
                 throw new NinjaException($error, $code, $httpResponse);
             }
 
-            return $response;
+            return $httpResponse;
 
         } catch (Exception $e) {
             throw new NinjaException($e->getMessage(), $e->getCode(), $httpResponse);
