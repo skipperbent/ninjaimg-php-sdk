@@ -88,6 +88,11 @@ class NinjaImage
         return $this->addParam('h', $height);
     }
 
+    public function download(): self
+    {
+        return $this->addParam('download', '1');
+    }
+
     /**
      * Fit image
      *
