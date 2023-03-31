@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "pecee/http-service",
-            "version": "3.0.2",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/skipperbent/pecee-http-service.git",
-                "reference": "b0ac0f3c99afadb826a7654c846809460c2026e2"
+                "reference": "11103bc292f122539f09c5c60d02445860c57ec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skipperbent/pecee-http-service/zipball/b0ac0f3c99afadb826a7654c846809460c2026e2",
-                "reference": "b0ac0f3c99afadb826a7654c846809460c2026e2",
+                "url": "https://api.github.com/repos/skipperbent/pecee-http-service/zipball/11103bc292f122539f09c5c60d02445860c57ec2",
+                "reference": "11103bc292f122539f09c5c60d02445860c57ec2",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "issues": "https://github.com/skipperbent/pecee-http-service/issues",
                 "source": "https://github.com/skipperbent/http-service"
             },
-            "time": "2023-02-21T04:05:23+00:00"
+            "time": "2023-03-25T01:26:12+00:00"
         }
     ],
     "packages-dev": [
@@ -133,16 +133,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.11.0",
+            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "14daed4296fae74d9e3201d2c4925d1acb7aa614"
+                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/14daed4296fae74d9e3201d2c4925d1acb7aa614",
-                "reference": "14daed4296fae74d9e3201d2c4925d1acb7aa614",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
+                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
                 "shasum": ""
             },
             "require": {
@@ -180,7 +180,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.11.0"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.11.1"
             },
             "funding": [
                 {
@@ -188,7 +188,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-03T13:19:32+00:00"
+            "time": "2023-03-08T13:26:56+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
