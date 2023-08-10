@@ -61,13 +61,18 @@ class NinjaUpload extends RestBase
      * @return NinjaResponse Returns response object
      * @throws NinjaException
      */
-    public function upload(string $fileContents, string $destinationPath): NinjaResponse
+    public function upload(string $fileContents, string $destinationPath, bool $stripExif = false): NinjaResponse
     {
         $this->httpRequest->setHeaders([
             'X-Auth-Token: ' . $this->apiToken,
         ]);
 
         $this->httpRequest->setRawPostData($fileContents);
+
+        if($stripExif === true) {
+            $separator = strpos($destinationPath, '?') !== false ? '&' : '?';
+            $destinationPath .= $separator . 'strip_exif=1';
+        }
 
         return new NinjaResponse($this->domain, $this->api($destinationPath, static::METHOD_POST)->getResponseArray());
     }
